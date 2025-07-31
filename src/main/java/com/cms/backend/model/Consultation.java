@@ -1,27 +1,30 @@
 package com.cms.backend.model;
 
 import java.time.LocalDate;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name="consultation")
 public class Consultation {
 
-	private String consultationId;
-	private String patientId;
+	@Id
+	private Integer consultationId;
+	private Integer appointmentId;
 	private String diagnosis;
 	private LocalDate consultationDate;
-	private List<String> medicine;
-	private List<String> labTest;
-	public String getConsultationId() {
+	public Integer getConsultationId() {
 		return consultationId;
 	}
-	public void setConsultationId(String consultationId) {
+	public void setConsultationId(Integer consultationId) {
 		this.consultationId = consultationId;
 	}
-	public String getPatientId() {
-		return patientId;
+	public Integer getAppointmentId() {
+		return appointmentId;
 	}
-	public void setPatientId(String patientId) {
-		this.patientId = patientId;
+	public void setAppointmentId(Integer appointmentId) {
+		this.appointmentId = appointmentId;
 	}
 	public String getDiagnosis() {
 		return diagnosis;
@@ -35,19 +38,5 @@ public class Consultation {
 	public void setConsultationDate(LocalDate consultationDate) {
 		this.consultationDate = consultationDate;
 	}
-	public List<String> getMedicine() {
-		return medicine;
-	}
-	public void setMedicine(List<String> medicine) {
-		this.medicine = medicine;
-	}
-	public List<String> getLabTest() {
-		return labTest;
-	}
-	public void setLabTest(List<String> labTest) {
-		this.labTest = labTest;
-	}
-	
-	
 	
 }

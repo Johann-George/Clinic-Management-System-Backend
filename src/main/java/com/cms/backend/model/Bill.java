@@ -1,53 +1,77 @@
 package com.cms.backend.model;
 
-import java.util.List;
-
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="bill")
 public class Bill {
 	
-	private Patient patient;
-	private Consultation consultation;
-	private double consultationFee;
-	private List<String> labTest;
-	private List<String> medicine;
-	private double totalAmount;
-	public Patient getPatient() {
-		return patient;
+	@Id
+	private Integer billId;
+	private BigDecimal amount;
+	private Integer appointmentId;
+	private LocalDate billingDate;
+	private Integer patientId;
+	@Enumerated(EnumType.STRING)
+	private PaymentStatus paymentStatus;
+	
+	public enum PaymentStatus{
+		PENDING,
+		COMPLETED
 	}
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+
+	public Integer getBillId() {
+		return billId;
 	}
-	public Consultation getConsultation() {
-		return consultation;
+
+	public void setBillId(Integer billId) {
+		this.billId = billId;
 	}
-	public void setConsultation(Consultation consultation) {
-		this.consultation = consultation;
+
+	public BigDecimal getAmount() {
+		return amount;
 	}
-	public double getConsultationFee() {
-		return consultationFee;
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
-	public void setConsultationFee(double consultationFee) {
-		this.consultationFee = consultationFee;
+
+	public Integer getAppointmentId() {
+		return appointmentId;
 	}
-	public List<String> getLabTest() {
-		return labTest;
+
+	public void setAppointmentId(Integer appointmentId) {
+		this.appointmentId = appointmentId;
 	}
-	public void setLabTest(List<String> labTest) {
-		this.labTest = labTest;
+
+	public LocalDate getBillingDate() {
+		return billingDate;
 	}
-	public List<String> getMedicine() {
-		return medicine;
+
+	public void setBillingDate(LocalDate billingDate) {
+		this.billingDate = billingDate;
 	}
-	public void setMedicine(List<String> medicine) {
-		this.medicine = medicine;
+
+	public Integer getPatientId() {
+		return patientId;
 	}
-	public double getTotalAmount() {
-		return totalAmount;
+
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
 	}
-	public void setTotalAmount(double totalAmount) {
-		this.totalAmount = totalAmount;
+
+	public PaymentStatus getPaymentStatus() {
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
 }

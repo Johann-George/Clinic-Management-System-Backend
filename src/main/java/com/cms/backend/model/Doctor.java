@@ -1,5 +1,10 @@
 package com.cms.backend.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="doctor")
 public class Doctor extends Staff {
 	
 	private String specialization;
