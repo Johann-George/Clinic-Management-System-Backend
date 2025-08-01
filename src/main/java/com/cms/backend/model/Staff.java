@@ -2,6 +2,7 @@ package com.cms.backend.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -10,11 +11,12 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="staff")
-@Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Staff {
+public class Staff {
 	
 	@Id
+	@Column(name="staff_id")
 	private Integer staffId;
+	@Column(name="user_id")
 	private Integer userId;
 	private String name;
 	private String designation;
@@ -27,15 +29,18 @@ public abstract class Staff {
 		FEMALE
 	}
 	
-	public Staff(Integer staffId, Integer userId, String name, String designation, LocalDate dob, Gender gender, String address) {
-		this.staffId = staffId;
-		this.userId = userId;
-		this.name = name;
-		this.designation = designation;
-		this.dob = dob;
-		this.gender = gender;
-		this.address = address;
+	public Staff() {
 	}
+	
+//	public Staff(Integer staffId, Integer userId, String name, String designation, LocalDate dob, Gender gender, String address) {
+//		this.staffId = staffId;
+//		this.userId = userId;
+//		this.name = name;
+//		this.designation = designation;
+//		this.dob = dob;
+//		this.gender = gender;
+//		this.address = address;
+//	}
 
 	public Integer getStaffId() {
 		return staffId;

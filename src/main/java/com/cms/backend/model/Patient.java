@@ -1,54 +1,43 @@
 package com.cms.backend.model;
 
 import java.time.LocalDate;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name="patient")
 public class Patient {
 	
-	private String patientId;
+	@Id
+	@Column(name="patient_id")
+	private Integer patientId;
+	@Column(name="user_id")
+	private Integer userId;
 	private String name;
-	private String contactNo;
-	private String address;
 	private LocalDate dob;
 	private String gender;
-	private List<Consultation> consultation;
-	
-	public Patient(String patientId, String name, String contactNo, String address, LocalDate dob, String gender,
-			List<Consultation> consultation) {
-		super();
-		this.patientId = patientId;
-		this.name = name;
-		this.contactNo = contactNo;
-		this.address = address;
-		this.dob = dob;
-		this.gender = gender;
-		this.consultation = consultation;
-	}
-	
-	public String getPatientId() {
+	private String address;
+	@Column(name="contact_no")
+	private String contactNo;
+	public Integer getPatientId() {
 		return patientId;
 	}
-	public void setPatientId(String patientId) {
+	public void setPatientId(Integer patientId) {
 		this.patientId = patientId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 	public String getName() {
 		return name;
 	}
-	
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getContactNo() {
-		return contactNo;
-	}
-	public void setContactNo(String contactNo) {
-		this.contactNo = contactNo;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	public LocalDate getDob() {
 		return dob;
@@ -62,13 +51,17 @@ public class Patient {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public List<Consultation> getConsultation() {
-		return consultation;
+	public String getAddress() {
+		return address;
 	}
-	public void setConsultation(List<Consultation> consultation) {
-		this.consultation = consultation;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getContactNo() {
+		return contactNo;
+	}
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
 	}
 	
-	
-
 }

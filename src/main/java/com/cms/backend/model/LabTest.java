@@ -1,59 +1,91 @@
 package com.cms.backend.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="labtest")
 public class LabTest {
 	
-	private String testId;
-	private String patientId;
-	private String testName;
-	private String status;
+	@Id
+	@Column(name="lab_test_id")
+	private Integer labTestId;
+	@Column(name="patient_id")
+	private Integer patientId;
+	@Column(name="technician_id")
+	private Integer technicianId;
+	@Column(name="test_type_id")
+	private Integer testTypeId;
 	private String result;
-	
-	public LabTest(String testId, String testName, String patientId) {
-		this.testId = testId;
-		this.testName = testName;
-		this.patientId = patientId;
+	private Status status;
+
+
+	public enum Status{
+		PENDING,
+		EXECUTING,
+		COMPLETED
 	}
 
-	public String getTestId() {
-		return testId;
+
+	public Integer getLabTestId() {
+		return labTestId;
 	}
 
-	public void setTestId(String testId) {
-		this.testId = testId;
+
+	public void setLabTestId(Integer labTestId) {
+		this.labTestId = labTestId;
 	}
 
-	public String getPatientId() {
+
+	public Integer getPatientId() {
 		return patientId;
 	}
 
-	public void setPatientId(String patientId) {
+
+	public void setPatientId(Integer patientId) {
 		this.patientId = patientId;
 	}
 
-	public String getTestName() {
-		return testName;
+
+	public Integer getTechnicianId() {
+		return technicianId;
 	}
 
-	public void setTestName(String testName) {
-		this.testName = testName;
+
+	public void setTechnicianId(Integer technicianId) {
+		this.technicianId = technicianId;
 	}
 
-	public String getStatus() {
-		return status;
+
+	public Integer getTestTypeId() {
+		return testTypeId;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+
+	public void setTestTypeId(Integer testTypeId) {
+		this.testTypeId = testTypeId;
 	}
+
 
 	public String getResult() {
 		return result;
 	}
 
+
 	public void setResult(String result) {
 		this.result = result;
 	}
-	
-	
 
+
+	public Status getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 }
