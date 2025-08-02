@@ -21,6 +21,7 @@ public class Patient {
 	private String address;
 	@Column(name="contact_no")
 	private String contactNo;
+	
 	public Integer getPatientId() {
 		return patientId;
 	}

@@ -4,6 +4,8 @@ import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -15,6 +17,7 @@ public class DoctorAvailability {
 	@Column(name="availability_id")
 	private Integer availabilityId;
 	@Column(name="day_of_week")
+	@Enumerated(EnumType.STRING)
 	private DayOfWeek dayOfWeek;
 	@Column(name="doctor_id")
 	private Integer doctorId;

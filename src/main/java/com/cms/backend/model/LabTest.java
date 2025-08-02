@@ -2,6 +2,8 @@ package com.cms.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -19,6 +21,7 @@ public class LabTest {
 	@Column(name="test_type_id")
 	private Integer testTypeId;
 	private String result;
+	@Enumerated(EnumType.STRING)
 	private Status status;
 
 

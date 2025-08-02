@@ -1,12 +1,11 @@
 package com.cms.backend.model;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +20,7 @@ public class Staff {
 	private String name;
 	private String designation;
 	private LocalDate dob;
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	private String address;
 	
@@ -32,16 +32,6 @@ public class Staff {
 	public Staff() {
 	}
 	
-//	public Staff(Integer staffId, Integer userId, String name, String designation, LocalDate dob, Gender gender, String address) {
-//		this.staffId = staffId;
-//		this.userId = userId;
-//		this.name = name;
-//		this.designation = designation;
-//		this.dob = dob;
-//		this.gender = gender;
-//		this.address = address;
-//	}
-
 	public Integer getStaffId() {
 		return staffId;
 	}
