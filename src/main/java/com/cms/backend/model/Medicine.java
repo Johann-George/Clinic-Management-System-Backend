@@ -2,29 +2,24 @@ package com.cms.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name="labtest")
-public class LabTest {
+public class Medicine {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="lab_test_id")
-	private Integer labTestId;
+	@Column(name="medicine_id")
+	private Integer medicineId;
 	private String name;
 	private Float price;
-	
-	public Integer getLabTestId() {
-		return labTestId;
+	public Integer getMedicineId() {
+		return medicineId;
 	}
-	public void setLabTestId(Integer labTestId) {
-		this.labTestId = labTestId;
+	public void setMedicineId(Integer medicineId) {
+		this.medicineId = medicineId;
 	}
 	public String getName() {
 		return name;

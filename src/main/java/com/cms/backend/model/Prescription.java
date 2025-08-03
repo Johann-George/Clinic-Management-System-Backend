@@ -2,7 +2,11 @@ package com.cms.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -11,49 +15,22 @@ public class Prescription {
 	
 	@Id
 	@Column(name="prescription_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer prescriptionId;
-	@Column(name="consultation_id")
-	private Integer consultationId;
-	@Column(name="medicine_id")
-	private Integer medicineId;
-	private Integer dosage;
-	private Integer duration;
-	private Integer frequency;
+	@OneToOne
+	@JoinColumn(name="consultation_id")
+	private Consultation consultation;
 	public Integer getPrescriptionId() {
 		return prescriptionId;
 	}
 	public void setPrescriptionId(Integer prescriptionId) {
 		this.prescriptionId = prescriptionId;
 	}
-	public Integer getConsultationId() {
-		return consultationId;
+	public Consultation getConsultation() {
+		return consultation;
 	}
-	public void setConsultationId(Integer consultationId) {
-		this.consultationId = consultationId;
+	public void setConsultation(Consultation consultation) {
+		this.consultation = consultation;
 	}
-	public Integer getMedicineId() {
-		return medicineId;
-	}
-	public void setMedicineId(Integer medicineId) {
-		this.medicineId = medicineId;
-	}
-	public Integer getDosage() {
-		return dosage;
-	}
-	public void setDosage(Integer dosage) {
-		this.dosage = dosage;
-	}
-	public Integer getDuration() {
-		return duration;
-	}
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
-	public Integer getFrequency() {
-		return frequency;
-	}
-	public void setFrequency(Integer frequency) {
-		this.frequency = frequency;
-	}
-	
+
 }
