@@ -11,7 +11,7 @@ public class Medicine {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="medicine_id")
+	@Column(name="medicine_id", nullable = false)
 	private Integer medicineId;
 	private String name;
 	private Float price;

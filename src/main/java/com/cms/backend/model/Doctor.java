@@ -2,6 +2,8 @@ package com.cms.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -12,23 +14,14 @@ import jakarta.persistence.Table;
 public class Doctor {
 	
 	@Id
-	@Column(name="doctor_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="doctor_id", nullable = false)
 	private Integer doctorId;
-	private String specialization;
 	@OneToOne
-	@JoinColumn(name="staff_id", referencedColumnName = "staff_id")
+	@JoinColumn(name="staff_id", nullable = false)
 	private Staff staff;
+	private String specialization;
 	
-	public Doctor() {
-		super();
-	}
-
-//	public Doctor(Integer doctorId, Integer staffId, Integer userId, String name, String designation, LocalDate dob, Gender gender, String address) {
-//		super(staffId, userId, name, designation, dob, gender, address);
-//		this.doctorId = doctorId;
-//		this.setSpecialization(specialization);
-//	}
-
 	public Integer getDoctorId() {
 		return doctorId;
 	}

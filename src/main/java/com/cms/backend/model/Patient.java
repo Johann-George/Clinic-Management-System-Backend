@@ -3,7 +3,11 @@ package com.cms.backend.model;
 import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -11,10 +15,12 @@ import jakarta.persistence.Table;
 public class Patient {
 	
 	@Id
-	@Column(name="patient_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="patient_id", nullable = false)
 	private Integer patientId;
-	@Column(name="user_id")
-	private Integer userId;
+	@OneToOne
+	@JoinColumn(name="user_id", nullable = false)
+	private User user;
 	private String name;
 	private LocalDate dob;
 	private String gender;
@@ -22,18 +28,19 @@ public class Patient {
 	@Column(name="contact_no")
 	private String contactNo;
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public Integer getPatientId() {
 		return patientId;
 	}
 	public void setPatientId(Integer patientId) {
 		this.patientId = patientId;
 	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+	
 	public String getName() {
 		return name;
 	}

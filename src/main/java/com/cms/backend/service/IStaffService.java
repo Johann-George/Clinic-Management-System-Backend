@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cms.backend.model.Staff;
 
-public interface IAdminService {
+public interface IStaffService {
 
 	List<Staff> getStaff();
 	

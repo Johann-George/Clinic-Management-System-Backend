@@ -1,8 +1,12 @@
 package com.cms.backend.model;
 
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -10,21 +14,26 @@ import jakarta.persistence.Table;
 public class Consultation {
 
 	@Id
+	@Column(name="consultation_id", nullable = false)
 	private Integer consultationId;
-	private Integer appointmentId;
+	@OneToOne
+	@JoinColumn(name="appointment_id", nullable = false)
+	private Appointment appointment;
 	private String diagnosis;
 	private LocalDate consultationDate;
+
 	public Integer getConsultationId() {
 		return consultationId;
 	}
 	public void setConsultationId(Integer consultationId) {
 		this.consultationId = consultationId;
 	}
-	public Integer getAppointmentId() {
-		return appointmentId;
+	
+	public Appointment getAppointment() {
+		return appointment;
 	}
-	public void setAppointmentId(Integer appointmentId) {
-		this.appointmentId = appointmentId;
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
 	}
 	public String getDiagnosis() {
 		return diagnosis;

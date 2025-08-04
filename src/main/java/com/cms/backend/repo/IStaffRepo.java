@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cms.backend.model.Staff;
 
 @Repository
-public interface IAdminRepo extends JpaRepository<Staff, Integer>{
+public interface IStaffRepo extends JpaRepository<Staff, Integer>{
 	
 }

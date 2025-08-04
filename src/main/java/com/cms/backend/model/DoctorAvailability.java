@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,13 +16,14 @@ import jakarta.persistence.Table;
 public class DoctorAvailability {
 	
 	@Id
-	@Column(name="availability_id")
+	@Column(name="availability_id", nullable = false)
 	private Integer availabilityId;
 	@Column(name="day_of_week")
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek dayOfWeek;
-	@Column(name="doctor_id")
-	private Integer doctorId;
+	@OneToOne
+	@JoinColumn(name="doctor_id")
+	private Doctor doctor;
 	@Column(name="start_time")
 	private LocalTime startTime;
 	@Column(name="end_time")
@@ -52,12 +55,12 @@ public class DoctorAvailability {
 		this.dayOfWeek = dayOfWeek;
 	}
 
-	public Integer getDoctorId() {
-		return doctorId;
+	public Doctor getDoctor() {
+		return doctor;
 	}
 
-	public void setDoctorId(Integer doctorId) {
-		this.doctorId = doctorId;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 
 	public LocalTime getStartTime() {

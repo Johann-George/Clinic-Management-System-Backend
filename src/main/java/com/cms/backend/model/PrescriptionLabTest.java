@@ -15,15 +15,15 @@ public class PrescriptionLabTest {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="pl_id")
+	@Column(name="pl_id", nullable = false)
 	private Integer prescriptionLabTestId;
 	
 	@ManyToOne
-	@JoinColumn(name="prescription_id")
+	@JoinColumn(name="prescription_id", nullable = false)
 	private Prescription prescription;
 	
 	@ManyToOne
-	@JoinColumn(name="lab_test_id")
+	@JoinColumn(name="lab_test_id", nullable = false)
 	private LabTest labTest;
 	
 	@Enumerated(EnumType.STRING)

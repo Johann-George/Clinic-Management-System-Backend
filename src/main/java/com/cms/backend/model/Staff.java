@@ -5,7 +5,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,10 +17,14 @@ import jakarta.persistence.Table;
 public class Staff {
 	
 	@Id
-	@Column(name="staff_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="staff_id", nullable = false)
 	private Integer staffId;
-	@Column(name="user_id")
-	private Integer userId;
+
+	@OneToOne
+	@JoinColumn(name="user_id", nullable=false)
+	private User user;
+
 	private String name;
 	private String designation;
 	private LocalDate dob;
@@ -32,6 +40,16 @@ public class Staff {
 	public Staff() {
 	}
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+
 	public Integer getStaffId() {
 		return staffId;
 	}
@@ -40,15 +58,7 @@ public class Staff {
 		this.staffId = staffId;
 	}
 
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	public String getName() {
+		public String getName() {
 		return name;
 	}
 

@@ -2,10 +2,13 @@ package com.cms.backend.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,12 +16,19 @@ import jakarta.persistence.Table;
 public class Bill {
 	
 	@Id
+	@Column(name="bill_id", nullable = false)
 	private Integer billId;
+	@OneToOne
+	@JoinColumn(name="patient_id", nullable = false)
+	private Patient patient;
+	@OneToOne
+	@JoinColumn(name="appointment_id", nullable = false)
+	private Appointment appointment;
 	private BigDecimal amount;
-	private Integer appointmentId;
+	@Column(name="billing_date")
 	private LocalDate billingDate;
-	private Integer patientId;
 	@Enumerated(EnumType.STRING)
+	@Column(name="payment_status")
 	private PaymentStatus paymentStatus;
 	
 	public enum PaymentStatus{
@@ -34,6 +44,22 @@ public class Bill {
 		this.billId = billId;
 	}
 
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Appointment getAppointment() {
+		return appointment;
+	}
+
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
+	}
+
 	public BigDecimal getAmount() {
 		return amount;
 	}
@@ -42,28 +68,12 @@ public class Bill {
 		this.amount = amount;
 	}
 
-	public Integer getAppointmentId() {
-		return appointmentId;
-	}
-
-	public void setAppointmentId(Integer appointmentId) {
-		this.appointmentId = appointmentId;
-	}
-
 	public LocalDate getBillingDate() {
 		return billingDate;
 	}
 
 	public void setBillingDate(LocalDate billingDate) {
 		this.billingDate = billingDate;
-	}
-
-	public Integer getPatientId() {
-		return patientId;
-	}
-
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
 	}
 
 	public PaymentStatus getPaymentStatus() {

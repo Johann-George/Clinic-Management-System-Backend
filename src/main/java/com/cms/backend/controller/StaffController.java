@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cms.backend.model.Staff;
-import com.cms.backend.service.IAdminService;
+import com.cms.backend.service.IStaffService;
 
 @RestController
 @RequestMapping("/api/v1/staff")
-public class AdminController {
+public class StaffController {
 	
-	private final IAdminService adminService;
+	private final IStaffService adminService;
 	
 	@Autowired
-	public AdminController(IAdminService adminService) {
+	public StaffController(IStaffService adminService) {
 		this.adminService = adminService;
 	}
 	

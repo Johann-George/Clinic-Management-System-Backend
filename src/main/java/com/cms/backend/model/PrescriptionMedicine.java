@@ -13,15 +13,15 @@ public class PrescriptionMedicine {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="pm_id")
+	@Column(name="pm_id", nullable = false)
 	private Integer prescriptionMedicineId;
 	
 	@ManyToOne
-	@JoinColumn(name="prescription_id")
+	@JoinColumn(name="prescription_id", nullable = false)
 	private Prescription prescription;
 	
 	@ManyToOne
-	@JoinColumn(name="medicine_id")
+	@JoinColumn(name="medicine_id", nullable = false)
 	private Medicine medicine;
 	
 	private String dosage;

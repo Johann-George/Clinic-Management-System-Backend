@@ -2,8 +2,13 @@ package com.cms.backend.model;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -11,49 +16,85 @@ import jakarta.persistence.Table;
 public class Appointment {
 
 	@Id
+	@Column(name="appointment_id", nullable = false)
 	private Integer appointmentId;
-	private Integer patientId;
-	private Integer receptionistId;
-	private Integer doctorId;
+
+	@OneToOne
+	@JoinColumn(name="patient_id", nullable = false)
+	private Patient patient;
+
+	@OneToOne
+	@JoinColumn(name="receptionist_id", nullable = false)
+	private Receptionist receptionist;
+
+	@OneToOne
+	@JoinColumn(name="doctor_id", nullable = false)
+	private Doctor doctor;
 	private LocalDateTime date;
-	private LocalTime time;
+	@Column(name="appointment_time")
+	private LocalTime appointmentTime;
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
+	public enum Status{
+		PENDING,
+		COMPLETED
+	}
 
 	public Integer getAppointmentId() {
 		return appointmentId;
 	}
+
 	public void setAppointmentId(Integer appointmentId) {
 		this.appointmentId = appointmentId;
 	}
-	public Integer getPatientId() {
-		return patientId;
+
+	public Patient getPatient() {
+		return patient;
 	}
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
-	public Integer getReceptionistId() {
-		return receptionistId;
+
+	public Receptionist getReceptionist() {
+		return receptionist;
 	}
-	public void setReceptionistId(Integer receptionistId) {
-		this.receptionistId = receptionistId;
+
+	public void setReceptionist(Receptionist receptionist) {
+		this.receptionist = receptionist;
 	}
-	public Integer getDoctorId() {
-		return doctorId;
+
+	public Doctor getDoctor() {
+		return doctor;
 	}
-	public void setDoctorId(Integer doctorId) {
-		this.doctorId = doctorId;
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
+
 	public LocalDateTime getDate() {
 		return date;
 	}
+
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	public LocalTime getTime() {
-		return time;
-	}
-	public void setTime(LocalTime time) {
-		this.time = time;
+
+	public LocalTime getAppointmentTime() {
+		return appointmentTime;
 	}
 
+	public void setAppointmentTime(LocalTime appointmentTime) {
+		this.appointmentTime = appointmentTime;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 		
 }

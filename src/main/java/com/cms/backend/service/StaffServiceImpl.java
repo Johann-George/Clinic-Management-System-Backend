@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cms.backend.model.Staff;
-import com.cms.backend.repo.IAdminRepo;
+import com.cms.backend.repo.IStaffRepo;
 
 @Service
-public class AdminServiceImpl implements IAdminService {
+public class StaffServiceImpl implements IStaffService {
 	
-	private final IAdminRepo adminRepo;
+	private final IStaffRepo adminRepo;
 	
 	@Autowired
-	public AdminServiceImpl(IAdminRepo adminRepo) {
+	public StaffServiceImpl(IStaffRepo adminRepo) {
 		this.adminRepo = adminRepo;
 	}
 

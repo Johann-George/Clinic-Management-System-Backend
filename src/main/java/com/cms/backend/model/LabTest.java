@@ -2,8 +2,6 @@ package com.cms.backend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +13,7 @@ public class LabTest {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="lab_test_id")
+	@Column(name="lab_test_id", nullable = false)
 	private Integer labTestId;
 	private String name;
 	private Float price;
