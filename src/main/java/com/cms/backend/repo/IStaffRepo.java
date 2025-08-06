@@ -7,5 +7,6 @@ import com.cms.backend.model.Staff;
 
 @Repository
 public interface IStaffRepo extends JpaRepository<Staff, Integer>{
-	
+	Staff findByUserUsername(String staffName);
+	Staff findByUserUserId(Integer userId);
 }

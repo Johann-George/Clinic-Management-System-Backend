@@ -2,9 +2,9 @@ package com.cms.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cms.backend.model.Patient;
 import com.cms.backend.model.User;
+import com.cms.backend.model.User.Role;
 import com.cms.backend.repo.IPatientRepo;
 import com.cms.backend.repo.IUserRepo;
 
@@ -22,13 +22,13 @@ public class PatientServiceImpl implements IPatientService {
 
 	@Override
 	public void addPatient(Patient patient) {
-		if (patient.getUser() == null || patient.getUser().getUserId() == null) {
-	        throw new IllegalArgumentException("User ID is required.");
-	    }
-		Integer userId = patient.getUser().getUserId();
-		User user = userRepo.findById(userId)
-				.orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
-		patient.setUser(user);
+		User user = patient.getUser();
+		if(user == null || user.getUsername() == null || user.getPassword() == null) {
+			throw new IllegalArgumentException("Username and password are required");
+		}
+		user.setRole(Role.PATIENT);
+		User savedUser = userRepo.save(user);
+		patient.setUser(savedUser);
 		patientRepo.save(patient);
 	}
 

@@ -11,17 +11,27 @@ import com.cms.backend.repo.IStaffRepo;
 @Service
 public class StaffServiceImpl implements IStaffService {
 	
-	private final IStaffRepo adminRepo;
+	private final IStaffRepo staffRepo;
 	
 	@Autowired
-	public StaffServiceImpl(IStaffRepo adminRepo) {
-		this.adminRepo = adminRepo;
+	public StaffServiceImpl(IStaffRepo staffRepo) {
+		this.staffRepo = staffRepo;
 	}
 
 	@Override
 	public List<Staff> getStaff() {
-		List<Staff> staffList = adminRepo.findAll();
+		List<Staff> staffList = staffRepo.findAll();
 		return staffList;
+	}
+
+	@Override
+	public Staff getStaffByUsername(String staffName) {
+		return staffRepo.findByUserUsername(staffName);
+	}
+
+	@Override
+	public void deleteStaffById(Integer staffId) {
+		staffRepo.deleteById(staffId);
 	}
 
 }

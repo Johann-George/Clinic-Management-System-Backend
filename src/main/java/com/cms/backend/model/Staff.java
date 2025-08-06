@@ -1,6 +1,8 @@
 package com.cms.backend.model;
 
 import java.time.LocalDate;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,7 +23,7 @@ public class Staff {
 	@Column(name="staff_id", nullable = false)
 	private Integer staffId;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
 
@@ -48,8 +50,6 @@ public class Staff {
 		this.user = user;
 	}
 
-
-
 	public Integer getStaffId() {
 		return staffId;
 	}
@@ -58,7 +58,7 @@ public class Staff {
 		this.staffId = staffId;
 	}
 
-		public String getName() {
+	public String getName() {
 		return name;
 	}
 

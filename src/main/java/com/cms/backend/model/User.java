@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,13 +22,17 @@ public class User {
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Role role;
+
 	
 	public enum Role{
-		STAFF,
+		DOCTOR,
+		RECEPTIONIST,
+		PHARMACIST,
+		TECHNICIAN,
 		PATIENT,
 		ADMIN
 	}
-
+	
 	public Integer getUserId() {
 		return userId;
 	}

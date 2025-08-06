@@ -7,5 +7,7 @@ import com.cms.backend.model.User;
 
 @Repository
 public interface IUserRepo extends JpaRepository<User, Integer>{
+	
+	User findByUsernameAndPassword(String Username, String Password);
 
 }

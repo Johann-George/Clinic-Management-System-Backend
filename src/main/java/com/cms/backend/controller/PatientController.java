@@ -23,7 +23,7 @@ private final IPatientService patientService;
 		this.patientService = patientService;
 	}
 	
-	@PostMapping("/add")
+	@PostMapping("/register")
 	public void addPatient(@RequestBody Patient patient) {
 		patientService.addPatient(patient);
 	}

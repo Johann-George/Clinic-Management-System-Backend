@@ -9,5 +9,6 @@ import com.cms.backend.model.Patient;
 public interface IPatientRepo extends JpaRepository<Patient, Integer> {
 	
 	Patient findByUserUsername(String username);
+	Patient findByUserUserId(Integer userId);
 
 }
