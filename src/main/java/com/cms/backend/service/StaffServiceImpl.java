@@ -1,21 +1,29 @@
 package com.cms.backend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.cms.backend.model.Staff;
+import com.cms.backend.model.User;
+import com.cms.backend.model.User.Role;
 import com.cms.backend.repo.IStaffRepo;
+import com.cms.backend.repo.IUserRepo;
 
 @Service
 public class StaffServiceImpl implements IStaffService {
 	
 	private final IStaffRepo staffRepo;
+	private final IUserRepo userRepo;
 	
 	@Autowired
-	public StaffServiceImpl(IStaffRepo staffRepo) {
+	public StaffServiceImpl(IStaffRepo staffRepo, IUserRepo userRepo) {
 		this.staffRepo = staffRepo;
+		this.userRepo = userRepo;
 	}
 
 	@Override
@@ -26,12 +34,54 @@ public class StaffServiceImpl implements IStaffService {
 
 	@Override
 	public Staff getStaffByUsername(String staffName) {
-		return staffRepo.findByUserUsername(staffName);
+		Staff staff = staffRepo.findByUserUsername(staffName);
+		if(staff==null) {
+			throw new IllegalArgumentException("Staff not found");
+		}
+		return staff;
 	}
 
 	@Override
 	public void deleteStaffById(Integer staffId) {
 		staffRepo.deleteById(staffId);
+	}
+
+	@Override
+	public void registerStaff(Staff staff) {
+		User user = staff.getUser();
+		if(user == null || user.getUsername() == null || user.getPassword() == null) {
+			throw new IllegalArgumentException("Username and password are required");
+		}
+		if(staff.getDesignation().equals("Doctor")) {
+			user.setRole(Role.DOCTOR);
+		}
+		else if(staff.getDesignation().equals("Receptionist")) {
+			user.setRole(Role.RECEPTIONIST);
+		}
+		User savedUser = userRepo.save(user);
+		staff.setUser(savedUser);
+		staffRepo.save(staff);
+	}
+
+	@Override
+	public ResponseEntity<String> updateStaff(Integer id, Staff staff) {
+		Optional<Staff> existingStaffOpt = staffRepo.findById(id);
+		
+		if (existingStaffOpt.isEmpty()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Staff not found");
+	    }
+		
+		Staff existingStaff = existingStaffOpt.get();
+		
+	    // Update fields manually if needed
+	    existingStaff.setName(staff.getName());
+	    existingStaff.setDob(staff.getDob());
+	    existingStaff.setGender(staff.getGender());
+	    existingStaff.setAddress(staff.getAddress());
+	    existingStaff.setDesignation(staff.getDesignation());
+
+	    staffRepo.save(existingStaff); // Persist the updated entity
+	    return ResponseEntity.ok("Staff updated successfully");
 	}
 
 }

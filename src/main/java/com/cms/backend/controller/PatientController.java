@@ -16,7 +16,7 @@ import com.cms.backend.service.IPatientService;
 @RequestMapping("api/v1/patient")
 public class PatientController {
 	
-private final IPatientService patientService;
+	private final IPatientService patientService;
 	
 	@Autowired
 	public PatientController(IPatientService patientService) {

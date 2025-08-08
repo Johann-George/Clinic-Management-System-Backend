@@ -6,27 +6,21 @@ import java.time.LocalTime;
 public class AppointmentRequest {
 	
 	private String doctorUsername;
-	private String patientUsername;
-	private String receptionistUsername;
+	private Integer patientId;
 	private LocalDate appointmentDate;
 	private LocalTime appointmentTime;
+
 	public String getDoctorUsername() {
 		return doctorUsername;
 	}
 	public void setDoctorUsername(String doctorUsername) {
 		this.doctorUsername = doctorUsername;
 	}
-	public String getPatientUsername() {
-		return patientUsername;
+	public Integer getPatientId() {
+		return patientId;
 	}
-	public void setPatientUsername(String patientUsername) {
-		this.patientUsername = patientUsername;
-	}
-	public String getReceptionistUsername() {
-		return receptionistUsername;
-	}
-	public void setReceptionistUsername(String receptionistUsername) {
-		this.receptionistUsername = receptionistUsername;
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
 	}
 	public LocalDate getAppointmentDate() {
 		return appointmentDate;

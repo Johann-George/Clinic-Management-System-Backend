@@ -26,14 +26,23 @@ public class Staff {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
-
 	private String name;
 	private String designation;
 	private LocalDate dob;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	private String address;
+	@Column(name="contact_no")
+	private String contactNo;
 	
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
 	public enum Gender{
 		MALE,
 		FEMALE
@@ -96,6 +105,11 @@ public class Staff {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Staff get() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
