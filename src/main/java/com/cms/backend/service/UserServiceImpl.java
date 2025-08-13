@@ -4,7 +4,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cms.backend.dto.LoginResponseDto;
-import com.cms.backend.model.Staff;
 import com.cms.backend.model.User;
 import com.cms.backend.model.User.Role;
 import com.cms.backend.repo.IPatientRepo;

@@ -21,7 +21,6 @@ public class AppointmentController {
 	
 	@PostMapping("/book")
 	public void bookAppointment(@RequestBody AppointmentRequest appointmentRequest) {
-		System.out.println("AppointmentDate:"+appointmentRequest.getAppointmentDate());
 		appointmentService.bookAppointment(appointmentRequest);
 	}
 	

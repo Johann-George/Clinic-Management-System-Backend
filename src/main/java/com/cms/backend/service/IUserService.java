@@ -2,7 +2,6 @@ package com.cms.backend.service;
 
 import java.util.Optional;
 import com.cms.backend.dto.LoginResponseDto;
-import com.cms.backend.model.Staff;
 import com.cms.backend.model.User;
 
 public interface IUserService {

@@ -28,7 +28,6 @@ public class Consultation {
 	public void setConsultationId(Integer consultationId) {
 		this.consultationId = consultationId;
 	}
-	
 	public Appointment getAppointment() {
 		return appointment;
 	}

@@ -1,7 +1,6 @@
 package com.cms.backend.model;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
