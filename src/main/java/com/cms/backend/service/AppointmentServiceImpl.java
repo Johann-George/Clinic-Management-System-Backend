@@ -1,5 +1,7 @@
 package com.cms.backend.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
 	}
 
 	@Override
-	public void bookAppointment(AppointmentRequest appointmentRequest) {
+	public Appointment bookAppointment(AppointmentRequest appointmentRequest) {
 		Appointment appointment = new Appointment();
 		System.out.println("Output:"+appointmentRequest.getDoctorUsername()+appointmentRequest.getPatientId());
 		Optional<Patient> patientOpt = patientRepo.findById(appointmentRequest.getPatientId());
@@ -44,7 +46,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
 		appointment.setStaff(staff);
 		appointment.setAppointmentDate(appointmentRequest.getAppointmentDate());
 		appointment.setAppointmentTime(appointmentRequest.getAppointmentTime());
+		//setting the token number
+		String datePart = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+		int countForDay = appointmentRepo.countByAppointmentDate(LocalDate.now()) + 1;
+		String sequence = String.format("%03d", countForDay);
+		appointment.setTokenNo("A"+datePart+"-"+sequence);
 		appointmentRepo.save(appointment);
+		return appointment;
 	}
 
 }

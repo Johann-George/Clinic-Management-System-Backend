@@ -2,7 +2,6 @@ package com.cms.backend.config;
 
 import java.util.Arrays;
 import java.util.Collections;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -16,7 +15,7 @@ public class CorsConfig {
 	public CorsFilter corsFilter() {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-		config.setAllowedMethods(Collections.singletonList("*"));
+		config.setAllowedMethods(Collections.singletonList("*")); 
 		config.setAllowedHeaders(Arrays.asList("Content-Type"));
 		config.setAllowCredentials(true);
 		

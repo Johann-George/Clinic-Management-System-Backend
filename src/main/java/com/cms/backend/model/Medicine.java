@@ -15,6 +15,14 @@ public class Medicine {
 	private Integer medicineId;
 	private String name;
 	private Float price;
+	private Integer stock;
+	
+	public Integer getStock() {
+		return stock;
+	}
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
 	public Integer getMedicineId() {
 		return medicineId;
 	}

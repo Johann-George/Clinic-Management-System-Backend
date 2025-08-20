@@ -31,7 +31,15 @@ public class Appointment {
 	private LocalDate appointmentDate;
 	@Column(name="appointment_time")
 	private LocalTime appointmentTime;
+	@Column(name="token_No")
+	private String tokenNo;
 	
+	public String getTokenNo() {
+		return tokenNo;
+	}
+	public void setTokenNo(String tokenNo) {
+		this.tokenNo = tokenNo;
+	}
 	public Integer getAppointmentId() {
 		return appointmentId;
 	}

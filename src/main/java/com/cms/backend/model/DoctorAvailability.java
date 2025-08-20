@@ -22,8 +22,8 @@ public class DoctorAvailability {
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek dayOfWeek;
 	@OneToOne
-	@JoinColumn(name="doctor_id")
-	private Doctor doctor;
+	@JoinColumn(name="staff_id")
+	private Staff staff;
 	@Column(name="start_time")
 	private LocalTime startTime;
 	@Column(name="end_time")
@@ -55,12 +55,12 @@ public class DoctorAvailability {
 		this.dayOfWeek = dayOfWeek;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
+	public Staff getStaff() {
+		return staff;
 	}
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setStaff(Staff staff) {
+		this.staff = staff;
 	}
 
 	public LocalTime getStartTime() {

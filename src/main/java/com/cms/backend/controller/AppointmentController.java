@@ -1,11 +1,14 @@
 package com.cms.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cms.backend.dto.AppointmentRequest;
+import com.cms.backend.dto.AppointmentResponseDto;
+import com.cms.backend.model.Appointment;
 import com.cms.backend.service.IAppointmentService;
 
 @RestController
@@ -20,8 +23,10 @@ public class AppointmentController {
 	}
 	
 	@PostMapping("/book")
-	public void bookAppointment(@RequestBody AppointmentRequest appointmentRequest) {
-		appointmentService.bookAppointment(appointmentRequest);
+	public ResponseEntity<AppointmentResponseDto> bookAppointment(@RequestBody AppointmentRequest appointmentRequest) {
+		Appointment savedAppointment = appointmentService.bookAppointment(appointmentRequest);
+		AppointmentResponseDto responseDto = new AppointmentResponseDto(savedAppointment.getTokenNo());
+		return ResponseEntity.ok(responseDto);
 	}
 	
 }
