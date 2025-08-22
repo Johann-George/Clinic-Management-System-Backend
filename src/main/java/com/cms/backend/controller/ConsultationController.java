@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cms.backend.dto.ValidateAppointmentRequestDto;
+import com.cms.backend.dto.ValidateAppointmentResponseDto;
 import com.cms.backend.service.IConsultationService;
 
 @RestController
@@ -22,15 +24,13 @@ public class ConsultationController {
 	}
 	
 	@PostMapping("/validate")
-	public ResponseEntity<String> validateAppointment(@RequestBody String tokenNo){
-		try {
-			String response = consultationService.validateAppointment(tokenNo);
+	public ResponseEntity<ValidateAppointmentResponseDto> validateAppointment(@RequestBody ValidateAppointmentRequestDto request){
+			ValidateAppointmentResponseDto response = consultationService.validateAppointment(request.getTokenNo());
+			System.out.println("Appointment ID:"+response.getAppointmentId());
+			if(response.getAppointmentId() == null) {
+				return ResponseEntity.badRequest().body(response);
+			}
 			return ResponseEntity.ok(response);
-		}
-		catch(IllegalArgumentException e) {
-			return ResponseEntity.badRequest()
-					.body(e.getMessage());
-		}
 	}
 
 }

@@ -1,11 +1,9 @@
 package com.cms.backend.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.cms.backend.repo.IConsultationRepo;
+import com.cms.backend.dto.ValidateAppointmentResponseDto;
 
 public interface IConsultationService {
 	
-	String validateAppointment(String tokenNo);
+	ValidateAppointmentResponseDto validateAppointment(String tokenNo);
 
 }
