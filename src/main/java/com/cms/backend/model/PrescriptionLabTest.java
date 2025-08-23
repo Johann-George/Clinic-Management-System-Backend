@@ -9,8 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="prescription_lab_test")
 public class PrescriptionLabTest {
 	
 	@Id
@@ -22,9 +24,8 @@ public class PrescriptionLabTest {
 	@JoinColumn(name="prescription_id", nullable = false)
 	private Prescription prescription;
 	
-	@ManyToOne
-	@JoinColumn(name="lab_test_id", nullable = false)
-	private LabTest labTest;
+	@Column(name="lab_test_name", nullable = false)
+	private String labTestName;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -52,14 +53,6 @@ public class PrescriptionLabTest {
 		this.prescription = prescription;
 	}
 
-	public LabTest getLabTest() {
-		return labTest;
-	}
-
-	public void setLabTest(LabTest labTest) {
-		this.labTest = labTest;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
@@ -74,6 +67,14 @@ public class PrescriptionLabTest {
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	public String getLabTestName() {
+		return labTestName;
+	}
+
+	public void setLabTestName(String labTestName) {
+		this.labTestName = labTestName;
 	}
 	
 }

@@ -26,12 +26,6 @@ public class Prescription {
 	@JoinColumn(name="consultation_id", nullable = false)
 	private Consultation consultation;
 	
-	@OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PrescriptionMedicine> prescriptionMedicine = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PrescriptionLabTest> prescriptionLabTest = new ArrayList<>();
-
 	public Integer getPrescriptionId() {
 		return prescriptionId;
 	}
@@ -46,22 +40,6 @@ public class Prescription {
 
 	public void setConsultation(Consultation consultation) {
 		this.consultation = consultation;
-	}
-
-	public List<PrescriptionMedicine> getPrescriptionMedicine() {
-		return prescriptionMedicine;
-	}
-
-	public void setPrescriptionMedicine(List<PrescriptionMedicine> prescriptionMedicine) {
-		this.prescriptionMedicine = prescriptionMedicine;
-	}
-
-	public List<PrescriptionLabTest> getPrescriptionLabTest() {
-		return prescriptionLabTest;
-	}
-
-	public void setPrescriptionLabTest(List<PrescriptionLabTest> prescriptionLabTest) {
-		this.prescriptionLabTest = prescriptionLabTest;
 	}
 
 }

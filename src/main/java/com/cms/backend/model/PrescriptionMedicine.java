@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="prescription_medicine")
 public class PrescriptionMedicine {
 	
 	@Id
@@ -20,9 +22,8 @@ public class PrescriptionMedicine {
 	@JoinColumn(name="prescription_id", nullable = false)
 	private Prescription prescription;
 	
-	@ManyToOne
-	@JoinColumn(name="medicine_id", nullable = false)
-	private Medicine medicine;
+	@Column(name="medicine_name", nullable = false)
+	private String medicineName;
 	
 	private String dosage;
 	private String frequency;
@@ -39,12 +40,6 @@ public class PrescriptionMedicine {
 	}
 	public void setPrescription(Prescription prescription) {
 		this.prescription = prescription;
-	}
-	public Medicine getMedicine() {
-		return medicine;
-	}
-	public void setMedicine(Medicine medicine) {
-		this.medicine = medicine;
 	}
 	public String getDosage() {
 		return dosage;
@@ -63,6 +58,12 @@ public class PrescriptionMedicine {
 	}
 	public void setDuration(String duration) {
 		this.duration = duration;
+	}
+	public String getMedicineName() {
+		return medicineName;
+	}
+	public void setMedicineName(String medicineName) {
+		this.medicineName = medicineName;
 	}
 	
 }
