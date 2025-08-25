@@ -38,19 +38,21 @@ public class StaffController {
 	}
 	
 	@DeleteMapping("/{staffId}")
-	public ResponseEntity<Void> deleteStaffById(@PathVariable Integer staffId) {
+	public ResponseEntity<String> deleteStaffById(@PathVariable Integer staffId) {
 		staffService.deleteStaffById(staffId);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok("Staff deleted successfully");
 	}
 	
 	@PostMapping("/register")
-	public void addStaff(@RequestBody Staff staff) {
+	public ResponseEntity<String> addStaff(@RequestBody Staff staff) {
 		staffService.registerStaff(staff);
+		return ResponseEntity.ok("Staff registered successfully");
 	}
 	
 	@PutMapping("/{staffId}")
 	public ResponseEntity<String> updateStaff(@PathVariable Integer staffId,@RequestBody Staff staff) {
-		return staffService.updateStaff(staffId, staff);
+		staffService.updateStaff(staffId, staff);
+		return ResponseEntity.ok("Staff updated successfully");
 	}
 
 }

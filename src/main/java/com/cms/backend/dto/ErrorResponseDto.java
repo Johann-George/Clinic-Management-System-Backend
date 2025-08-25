@@ -8,14 +8,14 @@ public class ErrorResponseDto {
 	
 	private String apiPath;
 	private HttpStatus errorCode;
-	private String errorMessage;
+	private String message;
 	private LocalDateTime errorTime;
 	
-	public ErrorResponseDto(String apiPath, HttpStatus errorCode, String errorMessage, LocalDateTime errorTime) {
+	public ErrorResponseDto(String apiPath, HttpStatus errorCode, String message, LocalDateTime errorTime) {
 		super();
 		this.apiPath = apiPath;
 		this.errorCode = errorCode;
-		this.errorMessage = errorMessage;
+		this.message= message;
 		this.errorTime = errorTime;
 	}
 	
@@ -31,12 +31,14 @@ public class ErrorResponseDto {
 	public void setErrorCode(HttpStatus errorCode) {
 		this.errorCode = errorCode;
 	}
-	public String getErrorMessage() {
-		return errorMessage;
+	public String getMessage() {
+		return message;
 	}
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
+
 	public LocalDateTime getErrorTime() {
 		return errorTime;
 	}

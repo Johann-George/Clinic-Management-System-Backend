@@ -12,5 +12,5 @@ public interface IStaffService {
 	Staff getStaffByUsername(String staffName);
 	void deleteStaffById(Integer staffId);
 	void registerStaff(Staff staff);
-	ResponseEntity<String> updateStaff(Integer id, Staff staff);
+	void updateStaff(Integer id, Staff staff);
 }

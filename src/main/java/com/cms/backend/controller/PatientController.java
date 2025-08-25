@@ -24,19 +24,15 @@ public class PatientController {
 	}
 	
 	@PostMapping("/register")
-	public void addPatient(@RequestBody Patient patient) {
+	public ResponseEntity<String> addPatient(@RequestBody Patient patient) {
 		patientService.addPatient(patient);
+		return ResponseEntity.ok("Staff registered successfully");
 	}
 	
 	@GetMapping("/{username}")
 	public ResponseEntity<Patient> getPatientByUsername(@PathVariable String username) {
 		Patient patient = patientService.getPatientByName(username);
-		System.out.println("Found patient: " + patient);
-		if (patient != null) {
-	        return ResponseEntity.ok(patient);
-	    } else {
-	        return ResponseEntity.notFound().build();
-	    }
+	    return ResponseEntity.ok(patient);
 	}
 
 }

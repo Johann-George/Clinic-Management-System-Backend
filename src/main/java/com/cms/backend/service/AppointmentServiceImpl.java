@@ -35,12 +35,12 @@ public class AppointmentServiceImpl implements IAppointmentService {
 		System.out.println("Output:"+appointmentRequest.getDoctorUsername()+appointmentRequest.getPatientId());
 		Optional<Patient> patientOpt = patientRepo.findById(appointmentRequest.getPatientId());
 		if(patientOpt.isEmpty()) {
-			throw new IllegalArgumentException("No patient found");
+			throw new NullPointerException("No patient found");
 		}
 		Patient patient = patientOpt.get();
 		Staff staff = staffRepo.findByUserUsername(appointmentRequest.getDoctorUsername());
 		if(staff == null) {
-			throw new IllegalArgumentException("No doctor found");
+			throw new NullPointerException("No doctor found");
 		}
 		appointment.setPatient(patient);
 		appointment.setStaff(staff);

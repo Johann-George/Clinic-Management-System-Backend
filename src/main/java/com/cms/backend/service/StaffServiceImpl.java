@@ -36,7 +36,7 @@ public class StaffServiceImpl implements IStaffService {
 	public Staff getStaffByUsername(String staffName) {
 		Staff staff = staffRepo.findByUserUsername(staffName);
 		if(staff==null) {
-			throw new IllegalArgumentException("Staff not found");
+			throw new NullPointerException("Staff not found");
 		}
 		return staff;
 	}
@@ -64,14 +64,9 @@ public class StaffServiceImpl implements IStaffService {
 	}
 
 	@Override
-	public ResponseEntity<String> updateStaff(Integer id, Staff staff) {
-		Optional<Staff> existingStaffOpt = staffRepo.findById(id);
-		
-		if (existingStaffOpt.isEmpty()) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Staff not found");
-	    }
-		
-		Staff existingStaff = existingStaffOpt.get();
+	public void updateStaff(Integer id, Staff staff) {
+
+		Staff existingStaff = staffRepo.getReferenceById(id);
 		
 	    // Update fields manually if needed
 	    existingStaff.setName(staff.getName());
@@ -81,7 +76,6 @@ public class StaffServiceImpl implements IStaffService {
 	    existingStaff.setDesignation(staff.getDesignation());
 
 	    staffRepo.save(existingStaff); // Persist the updated entity
-	    return ResponseEntity.ok("Staff updated successfully");
 	}
 
 }

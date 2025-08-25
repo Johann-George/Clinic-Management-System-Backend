@@ -38,9 +38,6 @@ public class ConsultationController {
 		System.out.println("Medicines: " + consultationRequestDto.getPrescribedMedicines());
 		System.out.println("Lab Tests: " + consultationRequestDto.getPrescribedLabTests());
 		String response = consultationService.saveConsultation(consultationRequestDto);
-		if(response == null) {
-			return ResponseEntity.badRequest().body("Consultation could be saved");
-		}
 		return ResponseEntity.ok(response);
 	}
 

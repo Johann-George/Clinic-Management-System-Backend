@@ -40,73 +40,61 @@ public class ConsultationServiceImpl implements IConsultationService {
 	@Override
 	public ValidateAppointmentResponseDto validateAppointment(String tokenNo) {
 		ValidateAppointmentResponseDto response = null;
-		try {
-			Appointment appointment = appointmentRepo.findByTokenNo(tokenNo);
-			if(appointment == null) {
-				response = new ValidateAppointmentResponseDto(null,"Invalid token number");
-				throw new IllegalArgumentException("Token Number does not exist");
-			}
-			if(!LocalDate.now().equals(appointment.getAppointmentDate())) {
-				response = new ValidateAppointmentResponseDto(null,"Wrong date for appointment");
-				throw new IllegalArgumentException("Wrong date for appointment");
-			}
-			response = new ValidateAppointmentResponseDto(appointment.getAppointmentId(),"Appointment validation successful");
+		Appointment appointment = appointmentRepo.findByTokenNo(tokenNo);
+		if(appointment == null) {
+			response = new ValidateAppointmentResponseDto(null,"Invalid token number");
+			throw new NullPointerException("Token Number does not exist");
 		}
-		catch(IllegalArgumentException e) {
-			e.printStackTrace();
+		if(!LocalDate.now().equals(appointment.getAppointmentDate())) {
+			response = new ValidateAppointmentResponseDto(null,"Wrong date for appointment");
+			throw new IllegalArgumentException("Wrong date for appointment");
 		}
+		response = new ValidateAppointmentResponseDto(appointment.getAppointmentId(),"Appointment validation successful");
 		return response;
 	}
 
 	@Override
 	public String saveConsultation(ConsultationRequestDto consultationRequestDto) {
-		try {
-			//Storing values inside the consultation table
-			Appointment savedAppointment = appointmentRepo.getReferenceById(consultationRequestDto.getAppointmentId());
-			Consultation consultation = new Consultation();
-			consultation.setAppointment(savedAppointment);
-			consultation.setDiagnosis(consultationRequestDto.getDiagnosisDetails());
-			Consultation savedConsultation = consultationRepo.save(consultation);
-			if(savedConsultation == null) {
-				throw new RuntimeException("The consultation was not successfully saved");
-			}
-
-			//Storing values inside the prescription table
-			Prescription prescription = new Prescription();
-			prescription.setConsultation(consultation);
-			Prescription savedPrescription = prescriptionRepo.save(prescription);
-			if(savedPrescription == null) {
-				throw new RuntimeException("The prescription was not successfully saved");
-			}
-
-			for(PrescriptionMedicine prescriptionMedicine: consultationRequestDto.getPrescribedMedicines()) {
-				System.out.println("Medicine Name:"+prescriptionMedicine.getMedicineName());
-				System.out.println("Dosage:"+prescriptionMedicine.getDosage());
-			}
-			//Storing values inside Prescription Medicine table
-			for(PrescriptionMedicine prescriptionMedicine: consultationRequestDto.getPrescribedMedicines()) {
-				prescriptionMedicine.setPrescription(savedPrescription);
-				PrescriptionMedicine savedPrescriptionMedicine = prescriptionMedicineRepo.save(prescriptionMedicine);
-				if(savedPrescriptionMedicine == null) {
-					throw new RuntimeException("The prescribed medicine was not successfully saved");
-				}
-			}
-			
-			//Storing values inside Prescription Lab Test table
-			for(PrescriptionLabTest prescriptionLabTest: consultationRequestDto.getPrescribedLabTests()) {
-				prescriptionLabTest.setPrescription(savedPrescription);
-				prescriptionLabTest.setStatus(Status.PENDING);
-				PrescriptionLabTest savedPrescriptionLabTest = prescriptionLabTestRepo.save(prescriptionLabTest);
-				if(savedPrescriptionLabTest == null) {
-					throw new RuntimeException("The prescribed lab test was not successfully saved");
-				}
-			}
-		}
-		catch(RuntimeException e) {
-			System.out.println(e.getMessage());
-			return null;
+		//Storing values inside the consultation table
+		Appointment savedAppointment = appointmentRepo.getReferenceById(consultationRequestDto.getAppointmentId());
+		Consultation consultation = new Consultation();
+		consultation.setAppointment(savedAppointment);
+		consultation.setDiagnosis(consultationRequestDto.getDiagnosisDetails());
+		Consultation savedConsultation = consultationRepo.save(consultation);
+		if(savedConsultation == null) {
+			throw new RuntimeException("The consultation was not successfully saved");
 		}
 
+		//Storing values inside the prescription table
+		Prescription prescription = new Prescription();
+		prescription.setConsultation(consultation);
+		Prescription savedPrescription = prescriptionRepo.save(prescription);
+		if(savedPrescription == null) {
+			throw new RuntimeException("The prescription was not successfully saved");
+		}
+
+		for(PrescriptionMedicine prescriptionMedicine: consultationRequestDto.getPrescribedMedicines()) {
+			System.out.println("Medicine Name:"+prescriptionMedicine.getMedicineName());
+			System.out.println("Dosage:"+prescriptionMedicine.getDosage());
+		}
+		//Storing values inside Prescription Medicine table
+		for(PrescriptionMedicine prescriptionMedicine: consultationRequestDto.getPrescribedMedicines()) {
+			prescriptionMedicine.setPrescription(savedPrescription);
+			PrescriptionMedicine savedPrescriptionMedicine = prescriptionMedicineRepo.save(prescriptionMedicine);
+			if(savedPrescriptionMedicine == null) {
+				throw new RuntimeException("The prescribed medicine was not successfully saved");
+			}
+		}
+		
+		//Storing values inside Prescription Lab Test table
+		for(PrescriptionLabTest prescriptionLabTest: consultationRequestDto.getPrescribedLabTests()) {
+			prescriptionLabTest.setPrescription(savedPrescription);
+			prescriptionLabTest.setStatus(Status.PENDING);
+			PrescriptionLabTest savedPrescriptionLabTest = prescriptionLabTestRepo.save(prescriptionLabTest);
+			if(savedPrescriptionLabTest == null) {
+				throw new RuntimeException("The prescribed lab test was not successfully saved");
+			}
+		}
 		return "Consultation successful";
 	}
 

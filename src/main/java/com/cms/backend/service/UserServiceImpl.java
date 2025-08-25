@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 	public LoginResponseDto validateLogin(String username, String password) {
 		User user = userRepo.findByUsernameAndPassword(username, password);
 		if(user == null) {
-			return new LoginResponseDto("Invalid username or password", null, null);
+			return new LoginResponseDto("Invalid username or password!", null, null);
 		}
 		
 		Object userDetails = null;
