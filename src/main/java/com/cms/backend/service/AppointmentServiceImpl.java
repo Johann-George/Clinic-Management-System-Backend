@@ -32,12 +32,10 @@ public class AppointmentServiceImpl implements IAppointmentService {
 	@Override
 	public Appointment bookAppointment(AppointmentRequest appointmentRequest) {
 		Appointment appointment = new Appointment();
-		System.out.println("Output:"+appointmentRequest.getDoctorUsername()+appointmentRequest.getPatientId());
-		Optional<Patient> patientOpt = patientRepo.findById(appointmentRequest.getPatientId());
-		if(patientOpt.isEmpty()) {
-			throw new NullPointerException("No patient found");
+		Patient patient = patientRepo.findByUserUsername(appointmentRequest.getPatientUsername());
+		if(patient == null) {
+			throw new NullPointerException("Patient details missing.Please log in again");
 		}
-		Patient patient = patientOpt.get();
 		Staff staff = staffRepo.findByUserUsername(appointmentRequest.getDoctorUsername());
 		if(staff == null) {
 			throw new NullPointerException("No doctor found");

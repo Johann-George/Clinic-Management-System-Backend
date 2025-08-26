@@ -12,6 +12,8 @@ import com.cms.backend.dto.ValidateAppointmentRequestDto;
 import com.cms.backend.dto.ValidateAppointmentResponseDto;
 import com.cms.backend.service.IConsultationService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("api/v1/consultation")
 public class ConsultationController {
@@ -34,7 +36,7 @@ public class ConsultationController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<String> saveConsultation(@RequestBody ConsultationRequestDto consultationRequestDto){
+	public ResponseEntity<String> saveConsultation(@Valid @RequestBody ConsultationRequestDto consultationRequestDto){
 		System.out.println("Medicines: " + consultationRequestDto.getPrescribedMedicines());
 		System.out.println("Lab Tests: " + consultationRequestDto.getPrescribedLabTests());
 		String response = consultationService.saveConsultation(consultationRequestDto);

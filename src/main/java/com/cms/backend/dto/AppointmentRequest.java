@@ -2,12 +2,21 @@ package com.cms.backend.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class AppointmentRequest {
 	
+	@NotBlank(message = "Doctor username cannot be empty")
 	private String doctorUsername;
-	private Integer patientId;
+	
+	@NotBlank(message = "Patient username cannot be empty")
+	private String patientUsername;
+	
+	@NotNull(message = "Date cannot be empty")
 	private LocalDate appointmentDate;
+	
+	@NotNull(message = "Time cannot be empty")
 	private LocalTime appointmentTime;
 
 	public String getDoctorUsername() {
@@ -16,11 +25,11 @@ public class AppointmentRequest {
 	public void setDoctorUsername(String doctorUsername) {
 		this.doctorUsername = doctorUsername;
 	}
-	public Integer getPatientId() {
-		return patientId;
+	public String getPatientUsername() {
+		return patientUsername;
 	}
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
+	public void setPatientUsername(String patientUsername) {
+		this.patientUsername = patientUsername;
 	}
 	public LocalDate getAppointmentDate() {
 		return appointmentDate;

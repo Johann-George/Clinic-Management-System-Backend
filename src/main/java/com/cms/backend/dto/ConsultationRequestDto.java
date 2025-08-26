@@ -5,10 +5,13 @@ import java.util.List;
 import com.cms.backend.model.PrescriptionLabTest;
 import com.cms.backend.model.PrescriptionMedicine;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class ConsultationRequestDto {
 	
 	private Integer appointmentId;
-	private String patientUsername;
+	
+	@NotBlank(message = "Diagnosis cannot be empty")
 	private String diagnosisDetails;
 	private List<PrescriptionMedicine> prescribedMedicines;
 	private List<PrescriptionLabTest> prescribedLabTests;
@@ -18,12 +21,6 @@ public class ConsultationRequestDto {
 	}
 	public void setAppointmentId(Integer appointmentId) {
 		this.appointmentId = appointmentId;
-	}
-	public String getPatientUsername() {
-		return patientUsername;
-	}
-	public void setPatientUsername(String patientUsername) {
-		this.patientUsername = patientUsername;
 	}
 	public String getDiagnosisDetails() {
 		return diagnosisDetails;

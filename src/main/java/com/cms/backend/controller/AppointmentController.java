@@ -11,6 +11,8 @@ import com.cms.backend.dto.AppointmentResponseDto;
 import com.cms.backend.model.Appointment;
 import com.cms.backend.service.IAppointmentService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("api/v1/appointment")
 public class AppointmentController {
@@ -23,9 +25,9 @@ public class AppointmentController {
 	}
 	
 	@PostMapping("/book")
-	public ResponseEntity<AppointmentResponseDto> bookAppointment(@RequestBody AppointmentRequest appointmentRequest) {
+	public ResponseEntity<AppointmentResponseDto> bookAppointment(@Valid @RequestBody AppointmentRequest appointmentRequest) {
 		Appointment savedAppointment = appointmentService.bookAppointment(appointmentRequest);
-		AppointmentResponseDto responseDto = new AppointmentResponseDto(savedAppointment.getTokenNo());
+		AppointmentResponseDto responseDto = new AppointmentResponseDto(savedAppointment.getTokenNo(),"Appointment booked successfully");
 		return ResponseEntity.ok(responseDto);
 	}
 	
