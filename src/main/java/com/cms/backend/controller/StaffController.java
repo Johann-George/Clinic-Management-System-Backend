@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cms.backend.dto.StaffRequestDto;
 import com.cms.backend.model.Staff;
 import com.cms.backend.service.IStaffService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/staff")
@@ -44,13 +48,13 @@ public class StaffController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<String> addStaff(@RequestBody Staff staff) {
-		staffService.registerStaff(staff);
+	public ResponseEntity<String> addStaff(@Valid @RequestBody StaffRequestDto staffRequestDto) {
+		staffService.registerStaff(staffRequestDto);
 		return ResponseEntity.ok("Staff registered successfully");
 	}
 	
 	@PutMapping("/{staffId}")
-	public ResponseEntity<String> updateStaff(@PathVariable Integer staffId,@RequestBody Staff staff) {
+	public ResponseEntity<String> updateStaff(@PathVariable Integer staffId,@RequestBody StaffRequestDto staff) {
 		staffService.updateStaff(staffId, staff);
 		return ResponseEntity.ok("Staff updated successfully");
 	}

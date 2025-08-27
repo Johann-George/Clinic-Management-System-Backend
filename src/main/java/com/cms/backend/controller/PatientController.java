@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cms.backend.dto.PatientRequestDto;
 import com.cms.backend.model.Patient;
 import com.cms.backend.service.IPatientService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api/v1/patient")
@@ -24,7 +27,7 @@ public class PatientController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<String> addPatient(@RequestBody Patient patient) {
+	public ResponseEntity<String> addPatient(@Valid @RequestBody PatientRequestDto patient) {
 		patientService.addPatient(patient);
 		return ResponseEntity.ok("Staff registered successfully");
 	}

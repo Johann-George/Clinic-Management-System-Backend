@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.cms.backend.dto.StaffRequestDto;
+import com.cms.backend.dto.UserDto;
 import com.cms.backend.model.Staff;
 import com.cms.backend.model.User;
 import com.cms.backend.model.User.Role;
@@ -47,33 +49,40 @@ public class StaffServiceImpl implements IStaffService {
 	}
 
 	@Override
-	public void registerStaff(Staff staff) {
-		User user = staff.getUser();
-		if(user == null || user.getUsername() == null || user.getPassword() == null) {
-			throw new IllegalArgumentException("Username and password are required");
-		}
-		if(staff.getDesignation().equals("Doctor")) {
+	public void registerStaff(StaffRequestDto staffDto) {
+		UserDto userDto = staffDto.getUser();
+		User user = new User();
+		user.setUsername(userDto.getUsername());
+		user.setPassword(userDto.getPassword());
+		if(staffDto.getDesignation().equals("Doctor")) {
 			user.setRole(Role.DOCTOR);
 		}
-		else if(staff.getDesignation().equals("Receptionist")) {
+		else if(staffDto.getDesignation().equals("Receptionist")) {
 			user.setRole(Role.RECEPTIONIST);
 		}
 		User savedUser = userRepo.save(user);
+		Staff staff = new Staff();
+		staff.setName(staffDto.getName());
+		staff.setDob(staffDto.getDob());
+		staff.setContactNo(staffDto.getContactNo());
+		staff.setGender(staffDto.getGender());
+		staff.setAddress(staffDto.getAddress());
+		staff.setDesignation(staffDto.getDesignation());
 		staff.setUser(savedUser);
 		staffRepo.save(staff);
 	}
 
 	@Override
-	public void updateStaff(Integer id, Staff staff) {
+	public void updateStaff(Integer id, StaffRequestDto staffDto) {
 
 		Staff existingStaff = staffRepo.getReferenceById(id);
 		
 	    // Update fields manually if needed
-	    existingStaff.setName(staff.getName());
-	    existingStaff.setDob(staff.getDob());
-	    existingStaff.setGender(staff.getGender());
-	    existingStaff.setAddress(staff.getAddress());
-	    existingStaff.setDesignation(staff.getDesignation());
+	    existingStaff.setName(staffDto.getName());
+	    existingStaff.setDob(staffDto.getDob());
+	    existingStaff.setGender(staffDto.getGender());
+	    existingStaff.setAddress(staffDto.getAddress());
+	    existingStaff.setDesignation(staffDto.getDesignation());
 
 	    staffRepo.save(existingStaff); // Persist the updated entity
 	}

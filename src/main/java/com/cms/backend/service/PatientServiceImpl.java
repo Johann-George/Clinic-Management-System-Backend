@@ -2,6 +2,9 @@ package com.cms.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.cms.backend.dto.PatientRequestDto;
+import com.cms.backend.dto.UserDto;
 import com.cms.backend.model.Patient;
 import com.cms.backend.model.User;
 import com.cms.backend.model.User.Role;
@@ -21,13 +24,19 @@ public class PatientServiceImpl implements IPatientService {
 	}
 
 	@Override
-	public void addPatient(Patient patient) {
-		User user = patient.getUser();
-		if(user == null || user.getUsername() == null || user.getPassword() == null) {
-			throw new IllegalArgumentException("Username and password are required");
-		}
+	public void addPatient(PatientRequestDto patientDto) {
+		UserDto userDto = patientDto.getUser();
+		User user = new User();
+		user.setUsername(userDto.getUsername());
+		user.setPassword(userDto.getPassword());
 		user.setRole(Role.PATIENT);
 		User savedUser = userRepo.save(user);
+		Patient patient = new Patient();
+		patient.setName(patientDto.getName());
+		patient.setAddress(patientDto.getAddress());
+		patient.setDob(patientDto.getDob());
+		patient.setGender(patientDto.getGender());
+		patient.setContactNo(patientDto.getContactNo());
 		patient.setUser(savedUser);
 		patientRepo.save(patient);
 	}
