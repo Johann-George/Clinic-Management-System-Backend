@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 	public LoginResponseDto validateLogin(String username, String password) {
 		User user = userRepo.findByUsernameAndPassword(username, password);
 		if(user == null) {
-			return new LoginResponseDto("Invalid username or password!", null, null);
+			return new LoginResponseDto("Invalid username or password!", null, null, null);
 		}
 		
 		Object userDetails = null;
@@ -53,7 +53,7 @@ public class UserServiceImpl implements IUserService {
 		else if(user.getRole() == Role.TECHNICIAN) {
 			userDetails = staffRepo.findByUserUserId(user.getUserId());
 		}
-		return new LoginResponseDto("Login successful", user.getRole(), userDetails);
+		return new LoginResponseDto("Login successful", user.getRole(), userDetails, null);
 		
 	}
 

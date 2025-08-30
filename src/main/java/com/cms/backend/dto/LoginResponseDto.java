@@ -1,36 +1,34 @@
 package com.cms.backend.dto;
 
-import com.cms.backend.model.User.Role;
-
 public class LoginResponseDto {
 	
 	private String message;
-	private Role role;
-	private Object userDetails;
+	private UserDto userDto;
+	private String jwtToken;
 	
-	public LoginResponseDto(String message, Role role, Object userDetails) {
+	public LoginResponseDto(String message, UserDto userDto, String jwtToken) {
 		this.message = message;
-		this.role = role;
-		this.userDetails = userDetails;
+		this.userDto = userDto;
+		this.jwtToken = jwtToken;
 	}
 	
+	public String getJwtToken() {
+		return jwtToken;
+	}
+	public void setJwtToken(String jwtToken) {
+		this.jwtToken = jwtToken;
+	}
 	public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Role getRole() {
-		return role;
+	public UserDto getUserDto() {
+		return userDto;
 	}
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	public Object getUserDetails() {
-		return userDetails;
-	}
-	public void setUserDetails(Object userDetails) {
-		this.userDetails = userDetails;
-	}
+	public void setUserDto(UserDto userDto) {
+		this.userDto = userDto;
+	}	
 
 }
