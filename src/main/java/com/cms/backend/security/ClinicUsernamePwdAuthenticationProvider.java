@@ -15,18 +15,26 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.cms.backend.model.Patient;
+import com.cms.backend.model.Staff;
+import com.cms.backend.model.User;
 import com.cms.backend.model.User.Role;
 import com.cms.backend.repo.IPatientRepo;
+import com.cms.backend.repo.IStaffRepo;
+import com.cms.backend.repo.IUserRepo;
 
 @Component
 public class ClinicUsernamePwdAuthenticationProvider implements AuthenticationProvider{
 	
+	private final IUserRepo userRepo;
 	private final IPatientRepo patientRepo;
+	private final IStaffRepo staffRepo;
 	private final PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public ClinicUsernamePwdAuthenticationProvider(IPatientRepo patientRepo, PasswordEncoder passwordEncoder) {
+	public ClinicUsernamePwdAuthenticationProvider(IUserRepo userRepo, IPatientRepo patientRepo, IStaffRepo staffRepo, PasswordEncoder passwordEncoder) {
+		this.userRepo = userRepo;
 		this.patientRepo = patientRepo;
+		this.staffRepo = staffRepo;
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -34,16 +42,26 @@ public class ClinicUsernamePwdAuthenticationProvider implements AuthenticationPr
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
 		String pwd = authentication.getCredentials().toString();
-		Patient patient = patientRepo.findByUserUsername(username);
-		if(patient == null) {
-			throw new UsernameNotFoundException("User details not found for the user: "+username);
+		User user = userRepo.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User details not found for the user: "+username));
+		GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().name());
+		if(user.getRole() == Role.ROLE_PATIENT) {
+			Patient patient = patientRepo.findByUserUsername(username);
+			if(patient != null && passwordEncoder.matches(pwd, patient.getUser().getPassword())) {
+				return new UsernamePasswordAuthenticationToken(patient, null, Collections.singletonList(authority));
+			}
+			else {
+				throw new BadCredentialsException("Invalid username or password!");
+			}
 		}
-		Role role = patient.getUser().getRole();
-		GrantedAuthority authority = new SimpleGrantedAuthority(role.name());
-		if(passwordEncoder.matches(pwd, patient.getUser().getPassword())) {
-			return new UsernamePasswordAuthenticationToken(patient, null, Collections.singletonList(authority));
-		} else {
-			throw new BadCredentialsException("Invalid password!");
+		else {
+			Staff staff = staffRepo.findByUserUsername(username);
+			if(staff != null && passwordEncoder.matches(pwd, staff.getUser().getPassword())) {
+				return new UsernamePasswordAuthenticationToken(staff, null, Collections.singletonList(authority));
+			}
+			else {
+				throw new BadCredentialsException("Invalid username or password!");
+			}
 		}
 	}
 

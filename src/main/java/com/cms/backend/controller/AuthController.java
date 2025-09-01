@@ -31,6 +31,7 @@ import jakarta.validation.Valid;
 
 import com.cms.backend.dto.UserResponseDto;
 import com.cms.backend.model.Patient;
+import com.cms.backend.model.Staff;
 import com.cms.backend.model.User.Role;
 import com.cms.backend.repo.IPatientRepo;
 import com.cms.backend.repo.IUserRepo;
@@ -63,9 +64,17 @@ public class AuthController {
 			Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(), loginRequestDto.getPassword()));
 			String jwtToken = jwtUtil.generateJwtToken(authentication);
 			var userDto = new UserResponseDto();
-			var loggedInUser = (Patient) authentication.getPrincipal();
-			BeanUtils.copyProperties(loggedInUser, userDto);
+			Object principal = authentication.getPrincipal();
+			if(principal instanceof Patient patient) {
+				BeanUtils.copyProperties(patient, userDto);
+			}
+			else if(principal instanceof Staff staff) {
+				BeanUtils.copyProperties(staff, userDto);
+			}
+
 			userDto.setRole(authentication.getAuthorities().iterator().next().getAuthority());
+			//BeanUtils.copyProperties(loggedInUser, userDto);
+			//userDto.setRole(authentication.getAuthorities().iterator().next().getAuthority());
 			return ResponseEntity.status(HttpStatus.OK).body(new LoginResponseDto(HttpStatus.OK.getReasonPhrase(), userDto, jwtToken));
 		}
 		catch(BadCredentialsException ex) {
