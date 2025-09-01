@@ -55,10 +55,10 @@ public class StaffServiceImpl implements IStaffService {
 		user.setUsername(userDto.getUsername());
 		user.setPassword(userDto.getPassword());
 		if(staffDto.getDesignation().equals("Doctor")) {
-			user.setRole(Role.DOCTOR);
+			user.setRole(Role.ROLE_DOCTOR);
 		}
 		else if(staffDto.getDesignation().equals("Receptionist")) {
-			user.setRole(Role.RECEPTIONIST);
+			user.setRole(Role.ROLE_RECEPTIONIST);
 		}
 		User savedUser = userRepo.save(user);
 		Staff staff = new Staff();

@@ -15,21 +15,22 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_id", nullable = false)
+	@Column(name = "user_id", nullable = false)
 	private Integer userId;
 	private String username;
+	@Column(name = "password", nullable = false, length = 500)
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
 	
 	public enum Role{
-		DOCTOR,
-		RECEPTIONIST,
-		PHARMACIST,
-		TECHNICIAN,
-		PATIENT,
-		ADMIN
+		ROLE_DOCTOR,
+		ROLE_RECEPTIONIST,
+		ROLE_PHARMACIST,
+		ROLE_TECHNICIAN,
+		ROLE_PATIENT,
+		ROLE_ADMIN
 	}
 	
 	public Integer getUserId() {

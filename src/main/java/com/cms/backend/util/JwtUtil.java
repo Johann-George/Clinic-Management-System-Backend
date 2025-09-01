@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import com.cms.backend.constants.ApplicationConstants;
+import com.cms.backend.model.Patient;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -29,9 +30,11 @@ public class JwtUtil {
 		String jwt = "";
 		String secret = env.getProperty(ApplicationConstants.JWT_SECRET_KEY, ApplicationConstants.JWT_SECRET_DEFAULT_VALUE);
 		SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-		User fetchedUser = (User) authentication.getPrincipal();
+		Patient fetchedPatient = (Patient) authentication.getPrincipal();
 		jwt = Jwts.builder().issuer("Techno King").subject("JWT Token")
-				.claim("username", fetchedUser.getUsername())
+				.claim("username", fetchedPatient.getName())
+				.claim("contactNumber", fetchedPatient.getContactNo())
+				.claim("role", authentication.getAuthorities().iterator().next().getAuthority())
 				.issuedAt(new java.util.Date())
 				.expiration(new java.util.Date((new java.util.Date()).getTime() + 60 * 60 * 1000))
 				.signWith(secretKey).compact();

@@ -26,12 +26,6 @@ public class PatientController {
 		this.patientService = patientService;
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<String> addPatient(@Valid @RequestBody PatientRequestDto patient) {
-		patientService.addPatient(patient);
-		return ResponseEntity.ok("Staff registered successfully");
-	}
-	
 	@GetMapping("/{username}")
 	public ResponseEntity<Patient> getPatientByUsername(@PathVariable String username) {
 		Patient patient = patientService.getPatientByName(username);

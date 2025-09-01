@@ -3,32 +3,37 @@ package com.cms.backend.dto;
 public class LoginResponseDto {
 	
 	private String message;
-	private UserDto userDto;
+	private UserResponseDto user;
 	private String jwtToken;
 	
-	public LoginResponseDto(String message, UserDto userDto, String jwtToken) {
+	public LoginResponseDto(String message, UserResponseDto user, String jwtToken) {
 		this.message = message;
-		this.userDto = userDto;
+		this.user= user;
 		this.jwtToken = jwtToken;
 	}
-	
-	public String getJwtToken() {
-		return jwtToken;
-	}
-	public void setJwtToken(String jwtToken) {
-		this.jwtToken = jwtToken;
-	}
+
 	public String getMessage() {
 		return message;
 	}
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public UserDto getUserDto() {
-		return userDto;
+
+	public UserResponseDto getUser() {
+		return user;
 	}
-	public void setUserDto(UserDto userDto) {
-		this.userDto = userDto;
-	}	
+
+	public void setUser(UserResponseDto user) {
+		this.user = user;
+	}
+
+	public String getJwtToken() {
+		return jwtToken;
+	}
+
+	public void setJwtToken(String jwtToken) {
+		this.jwtToken = jwtToken;
+	}
 
 }

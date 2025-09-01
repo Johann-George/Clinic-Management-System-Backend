@@ -28,8 +28,8 @@ public class PatientServiceImpl implements IPatientService {
 		UserDto userDto = patientDto.getUser();
 		User user = new User();
 		user.setUsername(userDto.getUsername());
-		user.setPassword(userDto.getPassword());
-		user.setRole(Role.PATIENT);
+		//user.setPassword(userDto.getPassword());
+		user.setRole(Role.ROLE_PATIENT);
 		User savedUser = userRepo.save(user);
 		Patient patient = new Patient();
 		patient.setName(patientDto.getName());
