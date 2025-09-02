@@ -76,14 +76,17 @@ public class StaffServiceImpl implements IStaffService {
 	public void updateStaff(Integer id, StaffRequestDto staffDto) {
 
 		Staff existingStaff = staffRepo.getReferenceById(id);
-		
+		User existingUser = existingStaff.getUser();
 	    // Update fields manually if needed
 	    existingStaff.setName(staffDto.getName());
 	    existingStaff.setDob(staffDto.getDob());
 	    existingStaff.setGender(staffDto.getGender());
 	    existingStaff.setAddress(staffDto.getAddress());
 	    existingStaff.setDesignation(staffDto.getDesignation());
-
+	    existingStaff.setContactNo(staffDto.getContactNo());
+	    existingUser.setUsername(staffDto.getUser().getUsername());
+	    existingUser.setPassword(staffDto.getUser().getPassword());
+	    userRepo.save(existingUser);
 	    staffRepo.save(existingStaff); // Persist the updated entity
 	}
 
