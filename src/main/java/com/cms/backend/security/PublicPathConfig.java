@@ -12,7 +12,8 @@ public class PublicPathConfig {
 	public List<String> publicPaths(){
 		return List.of(
 				"/api/v1/auth/**",
-				"/error"
+				"/error",
+				"/clinic/actuator/health/**"
 				);
 	};
 

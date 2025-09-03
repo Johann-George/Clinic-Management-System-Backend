@@ -12,6 +12,7 @@
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>backend</name>
+	<packaging>jar</packaging>
 	<description>Backend code for Clinic Management System</description>
 	<url/>
 	<licenses>
@@ -99,6 +100,10 @@
 		<dependency>
       		<groupId>org.springframework.boot</groupId>
       		<artifactId>spring-boot-starter-cache</artifactId>
+    	</dependency>
+    	<dependency>
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-actuator</artifactId>
     	</dependency>
 	</dependencies>
 

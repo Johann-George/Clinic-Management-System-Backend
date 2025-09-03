@@ -30,7 +30,9 @@ public class User {
 		ROLE_PHARMACIST,
 		ROLE_TECHNICIAN,
 		ROLE_PATIENT,
-		ROLE_ADMIN
+		ROLE_ADMIN,
+		ROLE_DEV_ENGINEER,
+		ROLE_OPS_ENGINEER
 	}
 	
 	public Integer getUserId() {

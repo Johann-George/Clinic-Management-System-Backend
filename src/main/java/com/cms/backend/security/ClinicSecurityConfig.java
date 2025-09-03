@@ -1,5 +1,6 @@
 package com.cms.backend.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,6 +36,9 @@ public class ClinicSecurityConfig {
 	
 	private final List<String> publicPaths;
 	
+	@Value("${clinic.cors.allowed-origins}")
+	private String allowedOrigins;
+	
 	public ClinicSecurityConfig(List<String> publicPaths) {
 		this.publicPaths = publicPaths;
 	}
@@ -49,6 +53,8 @@ public class ClinicSecurityConfig {
 					requests.requestMatchers("/api/v1/consultation/**").hasRole("DOCTOR");
 					requests.requestMatchers("/api/v1/appointment/**").hasAnyRole("PATIENT","RECEPTIONIST");
 					requests.requestMatchers("/api/v1/patient/**").hasRole("PATIENT");
+					requests.requestMatchers("/clinic/actuator/**").hasRole("OPS_ENGINEER");
+					requests.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").hasRole("DEV_ENGINEER");
 					requests.anyRequest().authenticated();
 				})
 			.addFilterBefore(new JWTTokenValidatorFilter(publicPaths), BasicAuthenticationFilter.class)
@@ -75,7 +81,7 @@ public class ClinicSecurityConfig {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+		config.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
 		config.setAllowedMethods(Collections.singletonList("*")); 
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		config.setAllowCredentials(true);
